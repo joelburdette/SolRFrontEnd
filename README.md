@@ -13,9 +13,9 @@ Run the following commands to install the appropriate tools:
 ```
 $ npm i react react-dom --save
 
-$ npm i solr-faceted-search-react --save
-
 $ npm i browserify babelify babel-preset-react babel-preset-react babel-preset-es2015 babel-preset-stage-2 --save-dev
+
+$ npm i solr-faceted-search-react --save
 ```
 
 Make sure you are still at the root of the project.
