@@ -26,26 +26,10 @@ var fields = [{ label: "General Search", field: "*", type: "text" },
 // The sortable fields you want
 var sortFields = [{ label: "Sender Email", field: "sender_email_address_s" }, { label: "Sent on", field: "sent_on_dt" }, { label: "Path", field: "path_s" }];
 
-var solrClient = new _solrFacetedSearchReact.SolrClient({
-    // The solr index url to be queried by the client
-    url: "https://cs-lab.letu.edu:50005/solr/mail_core/select",
-    searchFields: fields,
-    sortFields: sortFields,
-
-    // The change handler passes the current query- and result state for render
-    // as well as the default handlers for interaction with the search component
-    onChange: function onChange(state, handlers) {
-        return (
-            // Render the faceted search component
-            _reactDom2.default.render(_react2.default.createElement(_solrFacetedSearchReact.SolrFacetedSearch, _extends({}, state, handlers, {
-                bootstrapCss: true,
-                onSelectDoc: function onSelectDoc(doc) {
-                    return console.log(doc);
-                }
-            })), document.getElementById("app"))
-        );
-    }
-});
+var hiJoel = function hiJoel(doc) {
+    console.log(doc);
+    console.log("HI JOEL");
+};
 
 document.addEventListener("DOMContentLoaded", function () {
     // The client class
@@ -62,9 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Render the faceted search component
                 _reactDom2.default.render(_react2.default.createElement(_solrFacetedSearchReact.SolrFacetedSearch, _extends({}, state, handlers, {
                     bootstrapCss: true,
-                    onSelectDoc: function onSelectDoc(doc) {
-                        return console.log(doc);
-                    }
+                    onSelectDoc: hiJoel
+
                 })), document.getElementById("app"))
             );
         }
@@ -27281,7 +27264,7 @@ var CurrentQuery = (function (_React$Component) {
 								_react2["default"].createElement(
 									"label",
 									null,
-									searchField.label
+									"ThisStuff"
 								),
 								_this2.renderFieldValues(searchField)
 							);

@@ -13,6 +13,7 @@ const fields = [
     {label: "Sender Name", 	field: "sender_name_s", type: "list-facet"},
     {label: "Subject", 			field: "subject_s", 	type: "text"},
     //NEED TO ESCAPE SLASHES HERE
+  //    \\\\Public\ Folders\\*
     {label: "Path", 			field: "path_s", 	type: "text"},
     {label: "Sent on", 	field: "sent_on_dt", 	type: "date-range-facet"},
 ];
@@ -25,26 +26,10 @@ const sortFields = [
 ];
 
 
-  var solrClient = new SolrClient({
-      // The solr index url to be queried by the client
-      url: "https://cs-lab.letu.edu:50005/solr/mail_core/select",
-      searchFields: fields,
-      sortFields: sortFields,
-
-      // The change handler passes the current query- and result state for render
-      // as well as the default handlers for interaction with the search component
-      onChange: (state, handlers) =>
-          // Render the faceted search component
-          ReactDOM.render(
-              <SolrFacetedSearch
-                  {...state}
-                  {...handlers}
-                  bootstrapCss={true}
-                  onSelectDoc={(doc) => console.log(doc)}
-              />,
-              document.getElementById("app")
-          )
-});
+var lightbox_launch = function(doc) {
+  //Do whatever
+  console.log(doc);
+};
 
 document.addEventListener("DOMContentLoaded", () => {
     // The client class
@@ -63,7 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     {...state}
                     {...handlers}
                     bootstrapCss={true}
-                    onSelectDoc={(doc) => console.log(doc)}
+                    onSelectDoc={hiJoel}
+
                 />,
                 document.getElementById("app")
             )
