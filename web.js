@@ -16,9 +16,6 @@ var _solrFacetedSearchReact = require("solr-faceted-search-react");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//var DateTime = require('react-datetime');
-
-
 // The search fields and filterable facets you want
 var fields = [{ label: "General Search", field: "*", type: "text" },
 //{label: "Advanced Entry (field:value,...)", field: "*", type: "currentQuery"},
@@ -49,10 +46,29 @@ var solrClient = new _solrFacetedSearchReact.SolrClient({
         );
     }
 });
-solrClient.setInitialQuery("&-attachment_email_received_time_dt:[* TO *]");
+
 document.addEventListener("DOMContentLoaded", function () {
-    solrClient.initialize(); // this will send an initial search, fetching all results from solr
     // The client class
+    new _solrFacetedSearchReact.SolrClient({
+        // The solr index url to be queried by the client
+        url: "https://cs-lab.letu.edu:50005/solr/mail_core/select",
+        searchFields: fields,
+        sortFields: sortFields,
+
+        // The change handler passes the current query- and result state for render
+        // as well as the default handlers for interaction with the search component
+        onChange: function onChange(state, handlers) {
+            return (
+                // Render the faceted search component
+                _reactDom2.default.render(_react2.default.createElement(_solrFacetedSearchReact.SolrFacetedSearch, _extends({}, state, handlers, {
+                    bootstrapCss: true,
+                    onSelectDoc: function onSelectDoc(doc) {
+                        return console.log(doc);
+                    }
+                })), document.getElementById("app"))
+            );
+        }
+    }).initialize(); // this will send an initial search, fetching all results from solr
 });
 
 },{"react":"react","react-dom":"react-dom","solr-faceted-search-react":171}],2:[function(require,module,exports){

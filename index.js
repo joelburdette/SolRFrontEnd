@@ -5,10 +5,6 @@ import {
     SolrFacetedSearch,
     SolrClient
 } from "solr-faceted-search-react";
-//var DateTime = require('react-datetime');
-
-
-
 // The search fields and filterable facets you want
 const fields = [
     {label: "General Search", 		field: "*", type: "text"},
@@ -49,8 +45,27 @@ const sortFields = [
               document.getElementById("app")
           )
 });
-solrClient.setInitialQuery("&-attachment_email_received_time_dt:[* TO *]");
+
 document.addEventListener("DOMContentLoaded", () => {
-  solrClient.initialize(); // this will send an initial search, fetching all results from solr
     // The client class
+    new SolrClient({
+        // The solr index url to be queried by the client
+        url: "https://cs-lab.letu.edu:50005/solr/mail_core/select",
+        searchFields: fields,
+        sortFields: sortFields,
+
+        // The change handler passes the current query- and result state for render
+        // as well as the default handlers for interaction with the search component
+        onChange: (state, handlers) =>
+            // Render the faceted search component
+            ReactDOM.render(
+                <SolrFacetedSearch
+                    {...state}
+                    {...handlers}
+                    bootstrapCss={true}
+                    onSelectDoc={(doc) => console.log(doc)}
+                />,
+                document.getElementById("app")
+            )
+    }).initialize(); // this will send an initial search, fetching all results from solr
 });
